@@ -8,11 +8,11 @@ on:
 
 jobs:
 
-  build:
+  build_and_push:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build --platform linux/arm64 -t ikhwanperwira/ucloudflared:arm64 . && docker push ikhwanperwira/ucloudflared:arm64
+      run: docker login -u ikhwanperwira -p ${{ secrets.DOCKER_PASSWORD }} && docker build --platform linux/arm64 -t ikhwanperwira/ucloudflared:arm64 . && docker push ikhwanperwira/ucloudflared:arm64
