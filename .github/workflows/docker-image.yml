@@ -14,11 +14,13 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    steps:
+       steps:
       - uses: actions/checkout@v3
       - name: Login Dockerhub
         run: docker login -u ikhwanperwira -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build image (linux-arm64, linux-amd64)
-        run: docker buildx build --platform linux/arm64,linux/amd64 -t ikhwanperwira/ucloudflared:latest .
-      - name: Push
+      - name: Build and push linux-amd64 image
+        run: docker build --platform linux/amd64 -t ikhwanperwira/ucloudflared:linux-amd64 . && docker push ikhwanperwira/ucloudflared:linux-amd64
+      - name: Build and push linux-arm64 image
+        run: docker build --platform linux/arm64 -t ikhwanperwira/ucloudflared:linux-arm64 . && docker push ikhwanperwira/ucloudflared:linux-arm64
+      - name: Push latest image with default architecture (linux-arm64).
         run: docker push ikhwanperwira/ucloudflared:latest
