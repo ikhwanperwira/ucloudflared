@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Assign the basepath variable to $HOME/.ucloudflared
+basepath="$HOME/.ucloudflared"
+
+# Source the virtual environment activation script
+source "$basepath/.venv/bin/activate"
+
+# Print a message to confirm activation (optional)
+echo "Virtual environment activated!"
+
+# Detect architecture and store in ARCH variable
+arch=$(uname -m)
+if [[ $arch == aarch64 ]]; then
+  ARCH="linux-arm64"
+elif [[ $arch == x86_64 ]]; then
+  ARCH="linux-amd64"
+else
+  echo "ERROR: Unsupported architecture detected: $arch"
+  exit 1
+fi
+
+# Print the detected architecture (optional)
+echo "Detected architecture: $ARCH"
+
+# Capture all script args
+script_args="$@"
+
+# Execute the command with appropriate architecture
+udocker pull ikhwanperwira/ucloudflared:$ARCH && udocker run -v $basepath:/home/nonroot -v $basepath/ping_group_range:/proc/sys/net/ipv4/ping_group_range ikhwanperwira/ucloudflared:$ARCH $script_args
