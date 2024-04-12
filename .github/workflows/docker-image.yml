@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --platform linux/arm64 --file Dockerfile --tag ikhwanperwira/ucloudflared:arm64
+      run: docker build --platform linux/arm64 -t ikhwanperwira/ucloudflared:arm64 . && docker push ikhwanperwira/ucloudflared:arm64
