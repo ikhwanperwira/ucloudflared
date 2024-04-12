@@ -23,4 +23,4 @@ jobs:
       - name: Build and push linux-arm64 image
         run: docker build --platform linux/arm64 -t ikhwanperwira/ucloudflared:linux-arm64 . && docker push ikhwanperwira/ucloudflared:linux-arm64
       - name: Push latest image with default architecture (linux-arm64).
-        run: docker push ikhwanperwira/ucloudflared:latest
+        run: docker tag ikhwanperwira/ucloudflared:linux-arm64 ikhwanperwira/ucloudflared:latest && docker push ikhwanperwira/ucloudflared:latest
