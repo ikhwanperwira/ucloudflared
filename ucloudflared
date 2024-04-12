@@ -58,7 +58,7 @@ fi
 # Print the final flag value
 echo "Pull image? $pull_image"
 
-if [[ "$pull_image" == "true" ]];; then
+if [[ "$pull_image" == "true" ]]; then
   udocker pull ikhwanperwira/ucloudflared:$ARCH
 fi
 
