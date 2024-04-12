@@ -1,7 +1,10 @@
-#!/bin/bash
-
 # Assign the basepath variable to $HOME/.ucloudflared
 basepath="$HOME/.ucloudflared"
+
+# Check if the basepath is not exist, then install.
+if [ ! -d "$basepath" ]; then
+  git clone https://github.com/ikhwanperwira/ucloudflared && ucloudflared/install.sh
+fi
 
 # Source the virtual environment activation script
 source "$basepath/.venv/bin/activate"
