@@ -7,9 +7,16 @@ pip install udocker
 ```
 
 # Run
-* ARM64
+* linux-arm64
   ```
-  udocker run ikhwanperwira/ucloudflared:arm64 --hello-world
+  udocker run ikhwanperwira/ucloudflared:linux-arm64 --hello-world
   ```
-* AMD64
-  (not implemented yet)
+  OR
+  ```
+  udocker run ikhwanperwira/ucloudflared:latest --hello-world
+  ```
+  
+* linux-amd64
+  ```
+  udocker run ikhwanperwira/ucloudflared:linux-amd64 --hello-world
+  ```
