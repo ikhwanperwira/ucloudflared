@@ -26,14 +26,7 @@ if [ -f "$BASEPATH/ucloudflared" ]; then
   # Define target path (replace PREFIX if needed)
   TARGET_PATH="$PREFIX/bin/ucloudflared"
   echo "Moving ucloudflared to: $TARGET_PATH"
-  
-  # Check if sudo is needed (depends on your system permissions)
-  if [ "$(id -u)" -ne 0 ]; then
-    echo "Moving ucloudflared requires sudo privileges. Attempting with sudo..."
-    sudo mv "$BASEPATH/ucloudflared" "$TARGET_PATH"
-  else
-    mv "$BASEPATH/ucloudflared" "$TARGET_PATH"
-  fi
+  mv "$BASEPATH/ucloudflared" "$TARGET_PATH"
   
   # Check if move was successful
   if [ -f "$TARGET_PATH" ]; then
