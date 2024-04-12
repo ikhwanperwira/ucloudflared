@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # Get the absolute path of the script
 BASEPATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 echo "Script location: $BASEPATH"  # Verbose echo for script location
@@ -26,7 +24,7 @@ echo "Installation complete!"
 # Move ucloudflared binary (assuming it exists)
 if [ -f "$BASEPATH/ucloudflared" ]; then
   # Define target path (replace PREFIX if needed)
-  TARGET_PATH="$PREFIX//bin/ucloudflared"
+  TARGET_PATH="$PREFIX/bin/ucloudflared"
   echo "Moving ucloudflared to: $TARGET_PATH"
   
   # Check if sudo is needed (depends on your system permissions)
