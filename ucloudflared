@@ -21,8 +21,49 @@ fi
 # Print the detected architecture (optional)
 echo "Detected architecture: $ARCH"
 
+# Define the threshold for time difference (in seconds)
+THRESHOLD_SECONDS=$((2 * 24 * 60 * 60))  # 2 days in seconds
+
+# Initialize flag as False
+pull_image=false
+timestamp_path=$basepath/timestamp.txt
+
+# Check if timestamp.txt exists
+if [[ -f $timestamp_path ]]; then
+  # Load the timestamp from the file
+  timestamp=$(<$timestamp_path)
+
+  # Get the current local time in seconds since epoch
+  current_time=$(date +%s)
+
+  # Calculate the time difference in seconds
+  time_diff=$((current_time - timestamp))
+
+  # Check if the time difference is less than the threshold
+  if [[ $time_diff -lt $THRESHOLD_SECONDS ]]; then
+    # Calculate remaining hours until exceeding threshold
+    remaining_hours=$(( ($THRESHOLD_SECONDS - $time_diff) / 3600 ))
+    echo "$remaining_hours hours left before pulling image."
+  else
+    # Set flag to True if time difference is greater than threshold
+    pull_image=true
+    date +%s > $timestamp_path
+  fi
+else
+  # File doesn't exist, set flag to False
+  echo "timestamp.txt doesn't exist. Creating new one..."
+  date +%s > $timestamp_path
+fi
+
+# Print the final flag value
+echo "Pull image? $pull_image"
+
+if [[ "$pull_image" == "true" ]];; then
+  udocker pull ikhwanperwira/ucloudflared:$ARCH
+fi
+
 # Capture all script args
 script_args="$@"
 
 # Execute the command with appropriate architecture
-udocker pull ikhwanperwira/ucloudflared:$ARCH && udocker run -v $basepath:/home/nonroot -v $basepath/ping_group_range:/proc/sys/net/ipv4/ping_group_range ikhwanperwira/ucloudflared:$ARCH $script_args
+udocker run -v $basepath:/home/nonroot -v $basepath/ping_group_range:/proc/sys/net/ipv4/ping_group_range ikhwanperwira/ucloudflared:$ARCH $script_args
