@@ -1,6 +1,8 @@
 name: Docker Image CI
 
 on:
+  schedule:
+    - cron: "0 15 */2 * *"  # Runs at 3:00 PM (UTC) every other day
   push:
     branches: [ "main" ]
   pull_request:
@@ -13,6 +15,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker login -u ikhwanperwira -p ${{ secrets.DOCKER_PASSWORD }} && docker build --platform linux/arm64 -t ikhwanperwira/ucloudflared:arm64 . && docker push ikhwanperwira/ucloudflared:arm64
+      - uses: actions/checkout@v3
+      - name: Login Dockerhub
+        run: docker login -u ikhwanperwira -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build image (linux-arm64, linux-amd64)
+        run: docker buildx build --platform linux/arm64,linux/amd64 -t ikhwanperwira/ucloudflared:latest .
+      - name: Push
+        run: docker push ikhwanperwira/ucloudflared:latest
