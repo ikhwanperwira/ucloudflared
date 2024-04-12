@@ -1,4 +1,6 @@
 # ucloudflared
+[![Docker Image CI](https://github.com/ikhwanperwira/ucloudflared/actions/workflows/docker-image.yml/badge.svg)](https://github.com/ikhwanperwira/ucloudflared/actions/workflows/docker-image.yml)
+
 User-space cloudflared.
 
 # Setup
