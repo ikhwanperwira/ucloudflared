@@ -25,7 +25,7 @@ pip install udocker
   
 # Installation
 ```bash
-git clone https://github.com/ikhwanperwira/ucloudflared && ucloudflared/install.sh
+wget https://raw.githubusercontent.com/ikhwanperwira/ucloudflared/main/install.sh && chmod +x install.sh && ./install.sh && rm -rf install.sh
 ```
 
 # Usage
