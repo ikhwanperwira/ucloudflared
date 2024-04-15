@@ -65,5 +65,13 @@ fi
 # Capture all script args
 script_args="$@"
 
+if [ "$(id -u)" -eq 0 ]; then
+  # Script is running as root
+  IS_ROOT="--allow-root"
+else
+  # Script is not running as root
+  IS_ROOT=""
+fi
+
 # Execute the command with appropriate architecture
-udocker run -v $basepath:/home/nonroot -v $basepath/ping_group_range:/proc/sys/net/ipv4/ping_group_range ikhwanperwira/ucloudflared:$ARCH $script_args
+udocker "${IS_ROOT}" run -v $basepath:/home/nonroot -v $basepath/ping_group_range:/proc/sys/net/ipv4/ping_group_range ikhwanperwira/ucloudflared:$ARCH $script_args
