@@ -16,7 +16,7 @@ source "$BASEPATH/.venv/bin/activate"
 
 # Install dependencies from requirements.txt (ensure the file exists)
 echo "Installing dependencies from requirements.txt..."
-pip install -r "$BASEPATH/requirements.txt"
+"$BASEPATH/.venv/bin/pip" install -r "$BASEPATH/requirements.txt"
 
 # Print success message (optional)
 echo "Installation complete!"
